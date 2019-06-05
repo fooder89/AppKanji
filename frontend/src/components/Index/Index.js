@@ -3,7 +3,7 @@ import './../css/app.css';
 import './../css/bootstrap.min.css';
 import Header from './../Header/Header';
 import { Link } from 'react-router-dom';
-import AuthService from "./../auth/AuthService";
+//import AuthService from "./../auth/AuthService";
 
 class Index extends Component {
   constructor() {
@@ -13,13 +13,13 @@ class Index extends Component {
       user: null
     };
 
-    this.authService = new AuthService();
+    //this.authService = new AuthService();
 
-    this.fetchUser();
+   // this.fetchUser();
   }
 
-  fetchUser = () => {
-    this.authService
+ /* fetchUser = () => {
+    //this.authService
       .loggedin()
       .then(user => this.setState({ ...this.state, user }));
   };
@@ -29,11 +29,11 @@ class Index extends Component {
   };
 
   logout = () => {
-    this.authService
+   // this.authService
       .logout()
       .then(() => this.setState({ ...this.state, user: null }));
   };
-  
+  */
   render() {
 		return(
     <div>
