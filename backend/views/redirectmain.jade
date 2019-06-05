@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    script.
+      var row = !{data};
+      //const tempStorage = window.localStorage;
+      window.localStorage.clear();
+      window.localStorage.setItem('userLogin', JSON.stringify(row));
+      let j = '';
+      for (j in row) {
+       window.localStorage.setItem(j, row[j]);
+       console.log(localStorage, j, row[j], JSON.stringify(row[j]))
+      }
+      console.log(localStorage)
+      window.location.assign('http://localhost:3001/main');

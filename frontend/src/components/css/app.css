@@ -1,0 +1,50 @@
+.btn{
+	width: 100%;
+}
+
+.bg {
+  background: url("../img/banner3.jpg") no-repeat center center;
+  --background-size: cover;
+  background-position: center;
+  --position: fixed;
+  width: 100%;
+  --height: auto; /*same height as jumbotron */
+  top:0;
+  left:0;
+  z-index: -1;
+}
+
+.bg h1{
+  -webkit-text-stroke: 0.02em black;
+
+}
+
+.bg p{
+  -webkit-text-stroke: 0.04em black;
+
+}
+
+.jumbotron {
+  height: 100%;
+  --color: white;
+  color: #C14242;
+
+  text-shadow: #444 0 1em 1em;
+  --background:transparent;
+}
+
+body{
+	background-color: aliceblue;
+}
+	
+#access, .col-md-6, .col-sm-6{
+	float: right;
+}
+
+#access, #newUser, .col-xs-12{
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3em;
+	float: none;
+}
