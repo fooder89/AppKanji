@@ -31,7 +31,7 @@ let db = new sqlite3.Database(DB_PATH, (err) => {
     }
 });
 
-export function findOne(username){
+/*export function findOne(username){
 	var sql = "select * from usuarios where nombre=?"
     var params = username
     db.get(sql, params, (err, rows) => {
@@ -59,7 +59,7 @@ export function findById(id){
             "data":rows
         })
 	}
-}
+}*/
 
 module.exports = db
  
