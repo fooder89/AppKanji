@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Enable authentication using session + passport
 app.use(session({secret: 'tfgappkanji',saveUninitialized: true,resave: true}))
 
-require('./passport')(app);
+// require('./passport')(app);
 /*****************************/
 
 app.use(cors({

@@ -20,6 +20,7 @@ router.get("/", (req, res, next) => {
 
 // Insert here other API endpoints
 router.post("/api/loguser/", (req, res, next) => {
+    console.log("server POSt Loguser")
 	var errors=[]
     if (!req.body.pass){
         errors.push("No password specified");
@@ -36,6 +37,7 @@ router.post("/api/loguser/", (req, res, next) => {
         //pass : md5(req.body.pass)
 		pass : req.body.pass
     }
+    console.log(data)
     var sql = "select * from usuarios where nombre=? and password=?"
     var params =[data.name, data.pass]
     db.get(sql, params, (err, rows) => {

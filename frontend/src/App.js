@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { connect } from "react-redux";
-import {getData} from './redux/actions/index'
-import { k1, k2 } from './redux/constants/actionTypes';
+// import {getData} from './redux/actions/index'
+// import { k1, k2 } from './redux/constants/actionTypes';
 import Routes from "./Routes";
 
 
 class App extends Component {
-	componentDidMount() {
-    this.props.getData(k1);
-    this.props.getData(k2)
-  }
+	// componentDidMount() {
+  //   this.props.getData(k1);
+  //   this.props.getData(k2)
+  // }
   constructor(props) {
         super(props);
 		//this.handleClickR = this.handleClickR.bind(this);
@@ -51,4 +51,4 @@ class App extends Component {
   }
 }
 
-export default connect(null,{getData})(App);
+export default /*connect(null,{getData})(*/App/*)*/;

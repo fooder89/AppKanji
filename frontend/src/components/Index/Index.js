@@ -42,14 +42,10 @@ class Index extends Component {
 		<div className="row">	
 			<div className="row">	
 				<div className="col-md-6 col-sm-6 col-xs-12">
-					<a type="button" className="btn btn-success" id="newUser" onClick={this.handleClickR}>
-						<Link to="/register">Nuevo Usuario</Link>
-					</a>
+					<Link to="/register" type="button" className="btn btn-success" id="newUser">Nuevo Usuario</Link>
 				</div>
 				<div className="col-md-6 col-sm-6 col-xs-12">
-					<a type="button" className="btn btn-primary" id="access" onClick={this.handleClickL}>
-						<Link to="/login">Acceder</Link>
-					</a>
+					<Link to="/login" type="button" className="btn btn-primary" id="access">Acceder</Link>
 				</div>
 			</div>
 		</div>

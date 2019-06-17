@@ -11,11 +11,11 @@ import AppliedRoute from "./components/AppliedRoute";
 export default ({ childProps }) =>
   <BrowserRouter>
     <Switch>
-        <AppliedRoute path="/" exact component={Index} props={childProps}/>
-		<AppliedRoute path="/login" exact component={Login} props={childProps}/>
-		<AppliedRoute path="/register" exact component={Register} props={childProps}/>
-        <AppliedRoute path="/main" exact component={Main} props={childProps}/>
+      <AppliedRoute path="/" exact component={Index} props={childProps}/>
+		  <AppliedRoute path="/login" exact component={Login} props={childProps}/>
+		  <AppliedRoute path="/register" exact component={Register} props={childProps}/>
+      <AppliedRoute path="/main" exact component={Main} props={childProps}/>
 		  <AppliedRoute path="/test" exact component={Test} props={childProps}/>
-        <Route component={NotFound} />
+      <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

@@ -48,3 +48,10 @@ body{
 	margin-top: 3em;
 	float: none;
 }
+
+
+.disabled{
+  background-color: grey;
+  cursor: default;
+  color:white;
+}
