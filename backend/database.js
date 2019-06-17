@@ -16,17 +16,16 @@ let db = new sqlite3.Database(DB_PATH, (err) => {
 		password text NOT NULL,
 		nivel integer NOT NULL,
 		experiencia integer NOT NULL
-		);`//,
-        /*(err) => {
+		);`,
+        (err) => {
             if (err) {
                 // Table already created
             }else{
                 // Table just created, creating some rows
-                var insert = 'INSERT INTO user (name, email, password) VALUES (?,?,?)'
-                db.run(insert, ["admin","admin@example.com",md5("admin123456")])
-                db.run(insert, ["user","user@example.com",md5("user123456")])
-            }*/
-        //}
+                var insert = 'INSERT INTO usuarios (id, nombre, password, nivel, experiencia) VALUES (?,?,?,?,?)'
+                db.run(insert, ["1","admin",md5("admin"),99,100])
+            }
+        }
 		);  
     }
 });

@@ -51,7 +51,7 @@ class Main extends Component {
 		<div className="row">	
 			<div className="row">	
 				<div className="col-md-6 col-sm-6 col-xs-12">
-					<Link to="/test" type="button" className="btn btn-success" id="test1"> Tests Kanji 1 Traza </Link>
+					<Link to="/test" type="button" className="btn btn-primary" id="test1"> Tests Kanji 1 Traza </Link>
 				</div>
 				<div className="col-md-6 col-sm-6 col-xs-12">
 					{console.log("mostrar link boton",level>=2)}

@@ -34,8 +34,8 @@ router.post("/api/loguser/", (req, res, next) => {
     }
     var data = {
         name: req.body.name,
-        //pass : md5(req.body.pass)
-		pass : req.body.pass
+        pass : md5(req.body.pass)
+		//pass : req.body.pass
     }
     console.log(data)
     var sql = "select * from usuarios where nombre=? and password=?"
