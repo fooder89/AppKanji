@@ -2,7 +2,7 @@
 	width: 100%;
 }
 
-.bg {
+.jumbotron {
   background: url("../img/banner3.jpg") no-repeat center center;
   --background-size: cover;
   background-position: center;
@@ -14,12 +14,12 @@
   z-index: -1;
 }
 
-.bg h1{
+.jumbotron h1{
   -webkit-text-stroke: 0.02em black;
 
 }
 
-.bg p{
+.jumbotron p{
   -webkit-text-stroke: 0.04em black;
 
 }

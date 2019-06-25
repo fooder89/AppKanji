@@ -14,7 +14,7 @@ import reducer from './redux/reducers/index';
 // import the two exports from the last code snippet.
 //import { store } from './redux/store/index';
 
-const store = createStore(reducer);
+const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <Router>

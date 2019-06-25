@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import Container from 'react-bootstrap/Container'
 import './../css/app.css';
 import './../css/bootstrap.min.css';
 //import { Link } from 'react-router-dom';
+import Row from 'react-bootstrap/Row'
 import axios from "axios";
 import { connect } from "react-redux";
 import { userDataLoaded } from "../../redux/actions/index"
 import storage from 'redux-persist/lib/storage'
+import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 //import storage from 'redux-persist/lib/storage'
+
+const mapStateToProps = state =>{
+	return {UserData: state.UserData}
+  }
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -80,6 +88,11 @@ class Login extends Component {
 		this.setState({ userdata });
 };
 
+componentWillUnmount(){
+	this.props.userDataLoaded({UserData:this.state.userdata})
+}
+
+
   
   render() {
 
@@ -87,42 +100,53 @@ class Login extends Component {
 			console.log("inslogin:", this.state.islogin)
 			console.log("userdata", this.state.userdata.data)
 			//storage.
-			localStorage.clear()
-			this.props.userDataLoaded({UserData:this.state.userdata.data})
-			storage.setItem("Nombre",this.state.userdata.data["nombre"])
-			storage.setItem("Nivel",this.state.userdata.data["nivel"])
-			storage.setItem("Experiencia",this.state.userdata.data["experiencia"])
-			console.log("storage login",storage,localStorage)
+			// localStorage.clear()
+			this.props.userDataLoaded({UserData:this.state.userdata})
+			// storage.setItem("Nombre",this.state.userdata.data["nombre"])
+			// storage.setItem("Nivel",this.state.userdata.data["nivel"])
+			// storage.setItem("Experiencia",this.state.userdata.data["experiencia"])
+			// console.log("storage login",storage,localStorage)
 			this.setState({islogin:false})
+			setTimeout(2000)
 			window.location = "/main"
 	}
-
-
+	console.log("Array(this.props.UserData).length===1",Array(this.props.UserData).length,Array(this.props.UserData).length===1)
+	if (Array(this.props.UserData).length===1) {
+		console.log("IF")
     return (
 
-    <div className="container">	
-		<div className="row">	
+    <Container>	
+		<Row>	
 			<div className="panel-body">
 				<form onSubmit={this.handleSubmit}>
-				<div className="col-md-6 col-sm-6 col-xs-12">
+				{/* <div className="col-md-6 col-sm-6 col-xs-12"> */}
+				<Col>
 					<input type="text" name="name"  className="form-control" placeholder="Usuario" required="required" autoFocus="" onChange={this.handleChange}/>
-				</div>
-				<div className="col-md-6 col-sm-6 col-xs-12">
-					<label for="inputPassword" className="sr-only">Password</label>
+				</Col>
+				{/* <div className="col-md-6 col-sm-6 col-xs-12"> */}
+				<Col>
+					<label htmlFor="inputPassword" className="sr-only">Password</label>
 					<input type="password" name="pass" className="form-control" placeholder="Password" required="required" onChange={this.handleChange} />		
-				</div>
-				<div className="col-md-6 col-sm-6 col-xs-12">
+				</Col>
+				{/* <div className="col-md-6 col-sm-6 col-xs-12"> */}
+				<Col>
 					{/*<Link to="/main">*/}
 					<button className="btn btn-primary form-control" type="submit">Entrar</button>
 					{/*</Link>*/}
-				</div>
+				</Col>
 				</form>
+				<Spinner animation="border" />
 			</div>
-		</div>
-	</div>
+			
+		</Row>
+	</Container>
 	
     );
   }
+  else{
+	window.location = "/main"
+  }
+ }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

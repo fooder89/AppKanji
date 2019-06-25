@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './../css/app.css';
 import './../css/bootstrap.min.css';
 import Header from './../Header/Header';
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
 // import {connect} from "react-redux"
 // import { getData } from "../../redux/actions/index"
 // import { k1 } from "../../redux/constants/actionTypes"
@@ -9,6 +11,23 @@ import axios from "axios";
 // import img from "../img"
 // import uuid from "uuid"
 // import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import { isAnswered } from "../../redux/actions/index"
+import storage from 'redux-persist/lib/storage'
+import Row from 'react-bootstrap/Row';
+//import storage from 'redux-persist/lib/storage'
+
+const mapStateToProps = state => {
+	return {
+	  isAnswered: state.isAnswered
+	};
+  };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    isAnswered: (obj) => dispatch(isAnswered(obj)),
+  };
+}
 
 // var jsonQ=require("jsonq");
 
@@ -23,7 +42,7 @@ import axios from "axios";
 
 
   
-export default class Test extends Component {
+class Test extends Component {
   constructor(props){
     super(props)
 	this.state={
@@ -33,9 +52,13 @@ export default class Test extends Component {
 		kanjiInfo:[],
 		haveData:false
 		}
+	this.generarResp=this.generarResp.bind(this)
+	this.aleatorio=this.aleatorio.bind(this)
+	this.comprobarResp=this.comprobarResp.bind(this)
  }
 
  componentDidMount(){
+	 console.log("componentdidmount")
 
 	axios({
 	method: 'get',
@@ -66,12 +89,22 @@ export default class Test extends Component {
 	// console.log(axios.response)
  }
  comprobarResp= esCorrecta => e =>{
-	console.log(esCorrecta,e.target.id)
+	console.log("comprobarrespuesta",esCorrecta,e.target.id)
 	if(esCorrecta==="Correcta"){
 		document.querySelector(`#${e.target.id}`).classList.replace("btn-primary","btn-success")
-		this.setState((state) => ({
-			experience: state.experience+3
-		}))
+		if(this.state.experience>=97){
+			this.setState((state) => ({
+				experience: 0,
+				level: state.level+1
+			}))
+		}
+		else{
+			this.setState((state) => ({
+				experience: state.experience+3
+			}))
+		}
+		this.props.isAnswered(true)
+		setTimeout(5)
 	}
 	else{
 		document.querySelector(`#${e.target.id}`).classList.replace("btn-primary","btn-danger")
@@ -79,17 +112,52 @@ export default class Test extends Component {
 			this.setState((state) => ({
 				experience: state.experience-1
 			}))
+			this.props.isAnswered(true)
+			setTimeout(5)
 		}
 	}
+
+	axios({
+		method: 'post',
+		url: 'http://localhost:8001/api/uploaduser',
+		params: {
+			level: this.state.level,
+			experience: this.state.experience,
+			name: this.state.userName
+		}
+		
+		})
+		.then(res => {
+				console.log(res);
+				console.log("res.data " ,res.data.data);
+				//this.props.getUserData(res.data)
+				// this.setState({
+				// 	level: res.data,
+				// 	experience: res.data.data
+				// });
+				localStorage.setItem("Experiencia",this.state.experience)
+				localStorage.setItem("Nivel",this.state.level)
+				 console.log("res",res,"level: ",this.state.level,"experience",this.state.experience) 
+				//window.location = "/main"
+				
+		})
+	
+		.catch(err => {
+				 console.log("ERR",err,"experience: ",this.state.experience)
+				// this.setState({
+				// 	haveData:false,
+				// });
+		})
+
+		//this.forceUpdate()
+	
  }
 
  componentWillUpdate(nextProps, nextState){
-	return   this.state.experience !== nextState.experience;
+	return   this.state.experience !== nextState.experience||this.state.level!==nextState.level;
  }
 
- componentDidUpdate(){
-	 console.log("Socorro")
- }
+ 
  aleatorio(totalKanjis){
 	var numero_total=totalKanjis.length;
 	var numero=Math.floor(Math.random()*numero_total);
@@ -157,7 +225,7 @@ export default class Test extends Component {
  
   
   render() {
-
+		console.log("render")
 	   let {userName,level,experience,kanjiInfo}=this.state
 	   let respuestas=[]
 	//    console.log("props k1",this.props,this.props.k1)
@@ -177,26 +245,27 @@ export default class Test extends Component {
 		   
 		   rutaImg= kanjiInfoAux[idRespCorrecta].decimal+".png"
 
-		//    respuestas=
+		   respuestas=this.generarResp(kanjiInfoAux,idRespCorrecta)
 		//    console.log(this.generarResp(kanjiInfoAux,idRespCorrecta))
-		   //console.log("Respuestas FINAL",respuestas)
+		   console.log("Respuestas FINAL",respuestas)
 	
     return(
 
-		kanjiInfo.length>0 && (<div>
-       <Header /> 
-	<p id="usuario" >Usuario: {userName}</p>
-	<p id="nivel" >Nivel: {level}</p>
+		respuestas.length===4 && (<div>
+       <Header user={this.state.user}/> 
+	{/* <p id="usuario" >Usuario: {userName}</p>
+	<p id="nivel" >Nivel: {level}</p> */}
 
-	<div className="container">	
-		<div className="row">	
+	<Container>	
+		<Row>	
 		
 			<img src={require(`../img/${rutaImg}`)} className="img-fluid"/>
 			{/*<img Kanji/>*/}
 			
-			<div className="row">	
-				<div className="col-md-12 col-sm-12 col-xs-12">
-					{this.generarResp(kanjiInfoAux,idRespCorrecta).map((item,id) =>{
+			<Row>	
+				{/* <div className="col-md-12 col-sm-12 col-xs-12"> */}
+				<Col>
+					{/*this.generarResp(kanjiInfoAux,idRespCorrecta)*/respuestas.map((item,id) =>{
 						console.log("item",item,"id",id)
 						return(
 							<a type="button" className="btn btn-primary" id={"respuesta"+id} key={"respuesta"+id} onClick={this.comprobarResp(item[1])}>
@@ -237,10 +306,10 @@ export default class Test extends Component {
 					{console.log(id4,respuestas[id4],respuestas[id4][0])} 
 					{this.generarResp(kanjiInfoAux,idRespCorrecta)[3]}
 					</a> */}
-				</div>
-			</div>
-		</div>
-	</div>
+				</Col>
+			</Row>
+		</Row>
+	</Container>
   
   </div>)
 		)
@@ -248,4 +317,6 @@ export default class Test extends Component {
 }
 
 }
-//   export default /*connect(mapStateToProps,mapDispatchToProps)(*/Test/*)*/;
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Test);

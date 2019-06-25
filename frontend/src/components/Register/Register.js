@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './../css/app.css';
 import './../css/bootstrap.min.css';
+import Row from 'react-bootstrap/Row'
 import axios from "axios";
 import { connect } from "react-redux";
 import { userDataLoaded } from "../../redux/actions/index"
 import storage from 'redux-persist/lib/storage'
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -95,26 +98,29 @@ class Register extends Component {
 		window.location = "/main"
 }
     return (
-	<div className="container">	
-		<div className="row">	
+	<Container>	
+		<Row>	
 			<div className="panel-body">
 				<form onSubmit={this.handleSubmit}>
-				<div className="col-md-6 col-sm-6 col-xs-12">
+				{/* <div className="col-md-6 col-sm-6 col-xs-12"> */}
+				<Col>
 					<input type="text" name="name" id="name" className="form-control" placeholder="Usuario" required="required" autoFocus="" onChange={this.handleChange}/>
-				</div>
-				<div className="col-md-6 col-sm-6 col-xs-12">
+				</Col>
+				{/* <div className="col-md-6 col-sm-6 col-xs-12"> */}
+				<Col>
 					<label for="inputPassword" className="sr-only">Password</label>
 					<input type="password" name="pass" id="pass" className="form-control" placeholder="Password" required="required" onChange={this.handleChange}/>		
-				</div>
-				<div className="col-md-6 col-sm-6 col-xs-12">
+				</Col>
+				{/* <div className="col-md-6 col-sm-6 col-xs-12"> */}
+				<Col>
 				    {/*<Link to="/main">*/}
 						<button className="btn btn-success form-control" id="registerButton" type="submit">Registrar</button>
 					{/*</Link>*/}
-				</div>
+				</Col>
 				</form>
 			</div>
-		</div>
-	</div>
+		</Row>
+	</Container>
 	
     );
   }

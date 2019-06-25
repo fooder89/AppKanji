@@ -11,8 +11,7 @@ let db = new sqlite3.Database(DB_PATH, (err) => {
     }else{
         console.log('Connected to the SQLite database.')
         db.run(`CREATE TABLE IF NOT EXISTS usuarios (
-		id integer NOT NULL PRIMARY KEY,
-		nombre text NOT NULL UNIQUE,
+		nombre text NOT NULL PRIMARY KEY,
 		password text NOT NULL,
 		nivel integer NOT NULL,
 		experiencia integer NOT NULL
@@ -22,8 +21,8 @@ let db = new sqlite3.Database(DB_PATH, (err) => {
                 // Table already created
             }else{
                 // Table just created, creating some rows
-                var insert = 'INSERT INTO usuarios (id, nombre, password, nivel, experiencia) VALUES (?,?,?,?,?)'
-                db.run(insert, ["1","admin",md5("admin"),99,100])
+                var insert = 'INSERT or REPLACE INTO usuarios (nombre, password, nivel, experiencia) VALUES (?,?,?,?)'
+                db.run(insert, ["admin",md5("admin"),99,100])
             }
         }
 		);  
